@@ -20,3 +20,15 @@ body {
     height: 50px;
     padding: 5px;
 }
+
+.snakeBody {
+    background: url(snakeSkin.png);
+    background-size: cover;
+    border-radius: 30%;
+}
+
+.head {
+    background: url(snakeFace.jpg);
+    background-size: cover;
+    border-radius: 10%; 
+}
