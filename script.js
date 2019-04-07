@@ -63,6 +63,20 @@ function createMouse() {
 
 createMouse();
 
+let steps = false;
+
+let input = document.createElement('input');
+document.body.appendChild(input);
+input.style.cssText = `
+margin: auto;
+margit-top: 40px;
+font-size: 30px;
+display: block
+`;
+
+let score = 0;
+input.value = `Ваши очки: ${score}`;
+
 function move() {
     let snakeCoordinates = [snakeBody[0].getAttribute('posX'), 
                             snakeBody[0].getAttribute('posY')];
@@ -106,27 +120,48 @@ function move() {
             let b = snakeBody[snakeBody.length - 1].getAttribute('posY');
             snakeBody.push(document.querySelector('[posX = "' + a + '"][posY = "' + b + '"]'));
             createMouse();
+            score++;
+            input.value = `Ваши очки: ${score}`;
+    }
+
+    if (snakeBody[0].classList.contains('snakeBody')) {
+        setTimeout(() => {
+            alert(`Игра окончена! Ваши очки: ${score}`);
+        }, 200);
+
+        clearInterval(interval);
+        snakeBody[0].style.background = 'url(sadSnkeFace.jpeg) center no-repeat';
+        snakeBody[0].style.backgroundSize = "cover";
     }
 
     snakeBody[0].classList.add('head');
     for (let i = 0; i < snakeBody.length; i++) {
         snakeBody[i].classList.add('snakeBody');
     }
+
+    steps = true;
 }
 
 let interval = setInterval(move, 300);
 
 window.addEventListener('keydown', function (e) {
-    if (e.keyCode == 37 && direction != 'right') {
-        direction = 'left';
-    }
-    else if (e.keyCode == 38 && direction != 'down') {
-        direction = 'up';
-    }
-    else if (e.keyCode == 39 && direction != 'left') {
-        direction = 'right';
-    }
-    else if (e.keyCode == 40 && direction != 'up') {
-        direction = 'down';
+    if (steps == true) {
+        if (e.keyCode == 37 && direction != 'right') {
+            direction = 'left';
+            steps = false;
+        }
+        else if (e.keyCode == 38 && direction != 'down') {
+            direction = 'up';
+            steps = false;
+        }
+        else if (e.keyCode == 39 && direction != 'left') {
+            direction = 'right';
+            steps = false;
+        }
+        else if (e.keyCode == 40 && direction != 'up') {
+            direction = 'down';
+            steps = false;
+        }
+    
     }
 })
