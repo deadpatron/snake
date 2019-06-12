@@ -140,7 +140,7 @@ function move() {
     }
 
     steps = true;
-}
+};
 
 let interval = setInterval(move, 300);
 
@@ -164,4 +164,4 @@ window.addEventListener('keydown', function (e) {
         }
     
     }
-})
+});
